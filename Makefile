@@ -4,7 +4,10 @@
 #Settings
 
 # Objects
-OBJS := main.o aux.o
+OBJS := main.o \
+	aux.o \
+	menu.o \
+	button.o
 
 # C++-compiler
 CXX = g++
@@ -13,7 +16,7 @@ CXX = g++
 CPPFLAGS = -O2
 
 # Libraries
-LIBS = -lm -lSDLmain -lSDL
+LIBS = -lm -lSDLmain -lSDL -lSDL_ttf
 
 #misc for osx
 OSX = -framework cocoa
