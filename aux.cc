@@ -25,3 +25,19 @@ void applySurface(int x, int y, SDL_Surface *fromS, SDL_Surface *toS){
 
   SDL_BlitSurface(fromS, NULL, toS, &offset);
 }
+
+/*returns the width of the current window*/
+int getWindowWidth(){
+  if(SDL_GetVideoSurface() == NULL){
+    return -1;
+  }
+  return SDL_GetVideoSurface()->w;
+}
+
+/*returns the height of the current window*/
+int getWindowHeight(){
+  if(SDL_GetVideoSurface() == NULL){
+    return -1;
+  }
+  return SDL_GetVideoSurface()->h;
+}
