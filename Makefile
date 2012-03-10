@@ -4,7 +4,7 @@
 #Settings
 
 # Objects
-OBJS := main.o
+OBJS := main.o aux.o
 
 # C++-compiler
 CXX = g++
