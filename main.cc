@@ -11,62 +11,31 @@ using namespace std;
 #include "button.hh"
 #include "const.hh"
 
-const int SCREEN_WIDTH = 640; 
-const int SCREEN_HEIGHT = 480; 
-const int SCREEN_BPP = 32;
-const int FPS = 20;
+SDL_Surface *init();
+bool initMenu(Menu *menu, TTF_Font *retroFont);
 
-const unsigned char MENU_MODE = 0;
-const unsigned char GAME_MODE = 1;
-
-bool init(SDL_Surface *screen);
 
 int main(int argc, char* args[]){
-  printf("tjena grabbar\n");
+  printf("running...\n");
   unsigned char mode = 0;
   SDL_Surface* screen = NULL;
-  SDL_Surface* bg = NULL;
-  SDL_Surface* fg = NULL;
   TTF_Font *retroFont = NULL;
 
   SDL_Event event;
   bool quit = false;
   int fpsTimer;
 
-  //if(init(screen) == false) return 1;
-  if(SDL_Init( SDL_INIT_EVERYTHING ) == -1){
-    return false;
-  }
-  
-  screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, 
-			     SCREEN_BPP, SDL_SWSURFACE );
-  if(screen == NULL) return false;
+  //init SDL
+  screen = init();
+  if(screen == NULL) return 1;
 
-  if( TTF_Init() == -1 ) { 
-    return false; 
-  }
+  //load fonts
   retroFont = TTF_OpenFont( "fonts/Atarian.ttf", 35 );
-  if(retroFont == NULL) return false;
-
-  SDL_WM_SetCaption("WSnake", "WSnake");
-
-  //end init
-  fg = loadImage("img/apple.bmp");
-  applySurface(0, 0, fg, screen);
-  SDL_Flip( screen );
-
+  if(retroFont == NULL) return 1;
+  
+  //init menu
   Menu *menu = new Menu(retroFont);
-  cout<<"menu done"<<endl;
-  menu->addButton(new Button(0, 0, 300, 50, "story mode", 
-			     retroFont, BUTTON_STORY_MODE));
-  menu->addButton(new Button(0, 0, 300, 50, "quick game", 
-			     retroFont, BUTTON_QUICK_GAME));
-  menu->addButton(new Button(0, 0, 300, 50, "settings", 
-			     retroFont, BUTTON_SETTINGS));
-  menu->addButton(new Button(0, 0, 300, 50, "about this game", 
-			     retroFont, BUTTON_ABOUT));
-  menu->addButton(new Button(0, 20, 300, 50, "QUIT", 
-			     retroFont, BUTTON_QUIT));
+  initMenu(menu, retroFont);
 
   while( quit == false ) {
     fpsTimer = SDL_GetTicks();
@@ -131,23 +100,38 @@ int main(int argc, char* args[]){
 		 (SDL_GetTicks() - fpsTimer) ); 
     }
   }
-  
-  SDL_FreeSurface( fg );
-  SDL_FreeSurface( bg );
+
   SDL_Quit();
   return 0;
 }
 
-bool init(SDL_Surface *screen){
+SDL_Surface *init(){
+  SDL_Surface *screen;
+
   if(SDL_Init( SDL_INIT_EVERYTHING ) == -1){
     return false;
   }
   
   screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, 
 			     SCREEN_BPP, SDL_SWSURFACE );
-  if(screen == NULL) return false;
 
-  SDL_WM_SetCaption( "WSnake", "WSnake" );
+  if( TTF_Init() == -1 ) { 
+    return NULL; 
+  }
 
-  return true;
+  SDL_WM_SetCaption("WSnake", "WSnake");
+  return screen;
+}
+
+bool initMenu(Menu *menu, TTF_Font *retroFont){
+  menu->addButton(new Button(0, 0, 300, 50, "story mode", 
+			     retroFont, BUTTON_STORY_MODE));
+  menu->addButton(new Button(0, 0, 300, 50, "quick game", 
+			     retroFont, BUTTON_QUICK_GAME));
+  menu->addButton(new Button(0, 0, 300, 50, "settings", 
+			     retroFont, BUTTON_SETTINGS));
+  menu->addButton(new Button(0, 0, 300, 50, "about this game", 
+			     retroFont, BUTTON_ABOUT));
+  menu->addButton(new Button(0, 20, 300, 50, "QUIT", 
+			     retroFont, BUTTON_QUIT));
 }
