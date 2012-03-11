@@ -10,6 +10,7 @@ using namespace std;
 #include "menu.hh"
 #include "button.hh"
 #include "const.hh"
+#include "gameplan.hh"
 
 SDL_Surface *init();
 bool initMenu(Menu *menu, TTF_Font *retroFont);
@@ -37,21 +38,30 @@ int main(int argc, char* args[]){
   Menu *menu = new Menu(retroFont);
   initMenu(menu, retroFont);
 
+  //init gameplan
+  GamePlan *gameplan = new GamePlan(retroFont);
+
   while( quit == false ) {
     fpsTimer = SDL_GetTicks();
 
-    //Draw the right surface depending on in 
-    //which state the game is.
+    //Draw the right surface depending on game state
     switch(mode){
     case MENU_MODE:
       //update menu surface
       if(menu->needUpdate()){
 	cout<<"updating menu"<<endl;
 	menu->updateSurface();
-	applySurface(0, 0, menu->getSurface(), screen);
-	SDL_Flip( screen );
+	overWriteSurface(menu->getSurface(), screen);
+	SDL_Flip(screen);
       }
       
+      break;
+    case MODE_GAME_PLAN:
+      if(gameplan->needUpdate()){
+	gameplan->updateSurface();
+	overWriteSurface(gameplan->getSurface(), screen);
+	SDL_Flip(screen);
+      }
       break;
     case GAME_MODE:
       cout<<"in game"<<endl;
@@ -72,6 +82,7 @@ int main(int argc, char* args[]){
 	     break;
 	   case BUTTON_QUICK_GAME:
 	     cout<<"quick"<<endl;
+	     mode = MODE_GAME_PLAN;
 	     break;
 	   case BUTTON_SETTINGS:
 	     cout<<"settings"<<endl;
