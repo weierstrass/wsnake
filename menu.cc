@@ -31,8 +31,15 @@ void Menu::updateSurface(){
     surf = SDL_CreateRGBSurface(SDL_SWSURFACE, 
 				ww, wh, 32,
 				0xff000000,0x00ff0000,
-				0x0000ff00,0x000000ff);
+				0x0000ff00,0x00000000);
   }
+
+  //draw title
+  SDL_Surface *titleSurf = NULL;  
+  titleSurf = TTF_RenderText_Blended(font, MENU_TITLE.c_str(), 
+				       MENU_TITLE_COLOR);
+  applySurface((ww - titleSurf->w)*0.5 , 
+	       MENU_TITLE_TOP_PADDING, titleSurf, surf);
 
   //draw buttons
   int yOffset = MENU_TOP_PADDING;

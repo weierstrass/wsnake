@@ -30,7 +30,7 @@ SDL_Surface* Button::getSurface(){
 				0x0000ff00,0x00000000);
     SDL_FillRect(surf, NULL, 0x88000ff);
 
-    buttonText = TTF_RenderText_Blended( font, text.c_str(), 
+    buttonText = TTF_RenderText_Blended(font, text.c_str(), 
 				       BUTTON_TEXT_COLOR);
     if(buttonText == NULL) return NULL;
 
