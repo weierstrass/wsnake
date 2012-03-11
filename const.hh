@@ -22,6 +22,7 @@ const SDL_Color BUTTON_TEXT_COLOR = {0, 0, 0};
 
 const unsigned char MENU_MODE = 0;
 const unsigned char GAME_MODE = 1;
+const unsigned char MODE_GAME_PLAN = 2;
 
 const int BUTTON_STORY_MODE = 0;
 const int BUTTON_QUICK_GAME = 1;
