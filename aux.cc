@@ -27,6 +27,34 @@ SDL_Surface *createSurface(int w, int h){
   return retSurface;
 }
 
+void drawBorder(SDL_Surface *surf, int t, Uint32 color){
+  SDL_Rect r;
+  //top
+  r.x = 0;
+  r.y = 0;
+  r.w = surf->w;
+  r.h = t;
+  SDL_FillRect(surf, &r, color);
+  //left
+  r.x = 0;
+  r.y = 0;
+  r.w = t;
+  r.h = surf->h;
+  SDL_FillRect(surf, &r, color);
+  //right
+  r.x = surf->w - 1;
+  r.y = 0;
+  r.w = t;
+  r.h = surf->h;
+  SDL_FillRect(surf, &r, color);
+  //bottom
+  r.x = 0;
+  r.y = surf->h - 1;
+  r.w = surf->w;
+  r.h = t;
+  SDL_FillRect(surf, &r, color);
+}
+
 /*Blits the surface to the destination surface at pos (x,y)*/
 void applySurface(int x, int y, SDL_Surface *fromS, SDL_Surface *toS){
   SDL_Rect offset;
