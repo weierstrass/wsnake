@@ -25,6 +25,7 @@ int main(int argc, char* args[]){
   SDL_Event event;
   bool quit = false;
   int fpsTimer;
+  int mx, my;
 
   //init SDL
   screen = init();
@@ -40,6 +41,9 @@ int main(int argc, char* args[]){
 
   //init gameplan
   GamePlan *gameplan = new GamePlan(retroFont);
+
+  //init current game
+  Game *cGame = NULL;
 
   while( quit == false ) {
     fpsTimer = SDL_GetTicks();
@@ -57,6 +61,8 @@ int main(int argc, char* args[]){
       
       break;
     case MODE_GAME_PLAN:
+      //SDL_GetMouseState(&mx, &my);
+      //cout<<"mx: "<<mx<<", my: "<<my<<endl;
       if(gameplan->needUpdate()){
 	gameplan->updateSurface();
 	overWriteSurface(gameplan->getSurface(), screen);
@@ -72,29 +78,43 @@ int main(int argc, char* args[]){
     while( SDL_PollEvent( &event ) ) {
       switch(event.type){
       case SDL_MOUSEBUTTONDOWN:
-	   cout<<"mouse clicked at: ("<<
-	     event.button.x<<", "<<event.button.y<<")"<<endl;
-	 if(mode == MENU_MODE){
-	   switch(menu->getPressedButton(event.button.x,
-					 event.button.y)){
-	   case BUTTON_STORY_MODE:
-	     cout<<"story"<<endl;
-	     break;
-	   case BUTTON_QUICK_GAME:
-	     cout<<"quick"<<endl;
-	     mode = MODE_GAME_PLAN;
-	     break;
-	   case BUTTON_SETTINGS:
-	     cout<<"settings"<<endl;
-	     break;
-	   case BUTTON_ABOUT:
-	     cout<<"about"<<endl;
-	     break;
-	   case BUTTON_QUIT:
-	     cout<<"quit"<<endl;
-	     quit = true;
-	     break;
-	   }
+	cout<<"mouse clicked at: ("<<
+	  event.button.x<<", "<<event.button.y<<")"<<endl;
+	//MENU 
+	if(mode == MENU_MODE){
+	  switch(menu->getPressedButton(event.button.x,
+					event.button.y)){
+	  case BUTTON_STORY_MODE:
+	    cout<<"story"<<endl;
+	    break;
+	  case BUTTON_QUICK_GAME:
+	    cout<<"quick"<<endl;
+	    mode = MODE_GAME_PLAN;
+	    break;
+	  case BUTTON_SETTINGS:
+	    cout<<"settings"<<endl;
+	    break;
+	  case BUTTON_ABOUT:
+	    cout<<"about"<<endl;
+	    break;
+	  case BUTTON_QUIT:
+	    cout<<"quit"<<endl;
+	    quit = true;
+	    break;
+	  }
+	  //QUICK GAME
+	}else if(mode == MODE_GAME_PLAN){
+	  
+	  cGame = gameplan->getPressedGame(event.button.x, 
+					   event.button.y);
+	  if(cGame != NULL){
+	    mode = MODE_GAME;
+	  }
+	}	
+	break;
+      case SDL_MOUSEMOTION:
+	if(mode == MODE_GAME_PLAN){
+	  gameplan->updateHover(event.motion.x, event.motion.y);
 	}
 	break;
       }

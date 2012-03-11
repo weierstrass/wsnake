@@ -18,11 +18,18 @@ private:
   int ny;
   char* plan;
   void createThumbnail();
+  SDL_Rect parentBounds;
+  bool highlighted;
+  string title;
 public:
   Game(string path);
   SDL_Surface* getSurface();
   bool needUpdate();
   SDL_Surface* getThumbnail();
+  void setParentBounds(int x, int y, int w, int h);
+  SDL_Rect getParentBounds();
+  void setHighlighted(bool b);
+  bool getHighlighted();
 };
 
 #endif

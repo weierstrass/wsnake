@@ -54,19 +54,14 @@ void Game::createThumbnail(){
   
   int bw = GAME_THUMBNAIL_WIDTH / nx;
   int bh = GAME_THUMBNAIL_HEIGHT / ny;
-  cout<<"bw: "<<bw<<", bh: "<<bh<<endl;
-  cout<<"nx: "<<nx<<", ny: "<<ny<<endl;
   SDL_Surface *smallBrick = createSurface(bw, bh);
 
-  SDL_FillRect(smallBrick, NULL, SDL_MapRGB(thumbnail->format, 255, 0, 0));
-  
-  //draw border
-  drawBorder(thumbnail, 1, SDL_MapRGB(thumbnail->format, 255, 255, 255));
+  SDL_FillRect(smallBrick, NULL, 
+	       SDL_MapRGB(thumbnail->format, 128, 128, 128));
   
   for(int i = 0; i < nx; i++){
     for(int j = 0; j < ny; j++){
       if(*(plan + i + j*nx) == GAME_BRICK){
-	//cout<<"brick on: ("<<i*bw<<", "<<j*bh<<endl;
 	applySurface(2 + i*bw, 2 + j*bh, smallBrick, thumbnail);
       }
     }
@@ -75,4 +70,23 @@ void Game::createThumbnail(){
 
 SDL_Surface* Game::getThumbnail(){
   return thumbnail;
+}
+
+void Game::setParentBounds(int x, int y, int w, int h){
+  parentBounds.x = x;
+  parentBounds.y = y;
+  parentBounds.w = w;
+  parentBounds.h = h;
+}
+
+SDL_Rect Game::getParentBounds(){
+  return parentBounds;
+}
+
+void Game::setHighlighted(bool b){
+  highlighted = b;
+}
+
+bool Game::getHighlighted(){
+  return highlighted;
 }

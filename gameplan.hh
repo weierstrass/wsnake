@@ -25,6 +25,8 @@ public:
   SDL_Surface *getSurface();
   void updateSurface();
   bool needUpdate();
+  void updateHover(int x, int y);
+  Game *getPressedGame(int x, int y);
 };
 
 #endif
