@@ -22,6 +22,7 @@ const SDL_Color BUTTON_TEXT_COLOR = {0, 0, 0};
 
 const unsigned char MENU_MODE = 0;
 const unsigned char GAME_MODE = 1;
+const unsigned char MODE_GAME = 1;
 const unsigned char MODE_GAME_PLAN = 2;
 
 const int BUTTON_STORY_MODE = 0;
@@ -30,7 +31,7 @@ const int BUTTON_SETTINGS = 2;
 const int BUTTON_ABOUT = 3;
 const int BUTTON_QUIT = 4;
 
-const char READ_BLOCK = 'x';
+const unsigned char READ_BLOCK = 'x';
 const unsigned char GAME_BRICK = 'x';
 
 const int GAME_THUMBNAIL_WIDTH = 128;
