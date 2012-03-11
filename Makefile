@@ -7,7 +7,9 @@
 OBJS := main.o \
 	aux.o \
 	menu.o \
-	button.o
+	button.o \
+	gameplan.o \
+	game.o
 
 # C++-compiler
 CXX = g++
