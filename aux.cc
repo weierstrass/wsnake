@@ -17,6 +17,16 @@ SDL_Surface *loadImage(string filename){
   return retImage;
 }
 
+/*Creates a new RGB surface, note: alpha mask = 0*/
+SDL_Surface *createSurface(int w, int h){
+  SDL_Surface *retSurface = NULL;
+  retSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, 
+				    w, h, SCREEN_BPP,
+				    0xff000000,0x00ff0000,
+				    0x0000ff00,0x00000000);
+  return retSurface;
+}
+
 /*Blits the surface to the destination surface at pos (x,y)*/
 void applySurface(int x, int y, SDL_Surface *fromS, SDL_Surface *toS){
   SDL_Rect offset;

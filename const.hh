@@ -1,16 +1,32 @@
 #ifndef _inc_const_
 #define _inc_const_
 
+using namespace std;
+
 #include "SDL/SDL.h"
+#include "SDL/SDL_ttf.h"
+#include <string>
+
+const int SCREEN_WIDTH = 640; 
+const int SCREEN_HEIGHT = 480; 
+const int SCREEN_BPP = 32;
+const int FPS = 20;
 
 const int MENU_VERTICAL_SPACING = 20;
 const int MENU_TOP_PADDING = 100;
+const int MENU_TITLE_TOP_PADDING = 30;
+const string MENU_TITLE = "WSNAKE";
+const SDL_Color MENU_TITLE_COLOR = {255, 255, 255};
 
 const SDL_Color BUTTON_TEXT_COLOR = {0, 0, 0};
+
+const unsigned char MENU_MODE = 0;
+const unsigned char GAME_MODE = 1;
 
 const int BUTTON_STORY_MODE = 0;
 const int BUTTON_QUICK_GAME = 1;
 const int BUTTON_SETTINGS = 2;
 const int BUTTON_ABOUT = 3;
 const int BUTTON_QUIT = 4;
+
 #endif
