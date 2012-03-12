@@ -35,10 +35,12 @@ const unsigned char READ_BLOCK = 'x';
 const unsigned char GAME_BRICK = 'x';
 
 const int GAME_THUMBNAIL_WIDTH = 128;
-const int GAME_THUMBNAIL_HEIGHT = 96;
+const int GAME_THUMBNAIL_HEIGHT = 86;
 
 const int GAME_PLAN_TOP_PADDING = 150;
 const int GAME_PLAN_LEFT_PADDING = 50;
-const int GAME_PLAN_TB_MARGIN = 10;;
+const int GAME_PLAN_TB_MARGIN = 10;
+
+const int GAME_TOP_PADDING = 50;
 
 #endif
