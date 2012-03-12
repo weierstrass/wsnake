@@ -43,7 +43,7 @@ int main(int argc, char* args[]){
   GamePlan *gameplan = new GamePlan(retroFont);
 
   //init current game
-  Game *cGame = NULL;
+  Game *game = NULL;
 
   while( quit == false ) {
     fpsTimer = SDL_GetTicks();
@@ -70,7 +70,11 @@ int main(int argc, char* args[]){
       }
       break;
     case GAME_MODE:
-      cout<<"in game"<<endl;
+      if(game->needUpdate()){
+	game->updateSurface();
+	overWriteSurface(game->getSurface(), screen);
+	SDL_Flip(screen);	
+      }
       break;
     }
 
@@ -105,9 +109,9 @@ int main(int argc, char* args[]){
 	  //QUICK GAME
 	}else if(mode == MODE_GAME_PLAN){
 	  
-	  cGame = gameplan->getPressedGame(event.button.x, 
+	  game = gameplan->getPressedGame(event.button.x, 
 					   event.button.y);
-	  if(cGame != NULL){
+	  if(game != NULL && game->initGame()){
 	    mode = MODE_GAME;
 	  }
 	}	
@@ -115,6 +119,21 @@ int main(int argc, char* args[]){
       case SDL_MOUSEMOTION:
 	if(mode == MODE_GAME_PLAN){
 	  gameplan->updateHover(event.motion.x, event.motion.y);
+	}
+	break;
+      case SDL_KEYDOWN:
+	if(event.key.keysym.sym == SDLK_f){
+	  SDL_Surface* foo = createSurface(screen->w, screen->h);
+	  applySurface(0, 0, screen, foo);
+	  
+	  Uint32 flags = screen->flags;
+	  screen = SDL_SetVideoMode(0, 0, 0, 
+				    screen->flags ^ SDL_FULLSCREEN);
+	  if(screen == NULL) screen = SDL_SetVideoMode(0, 0, 0, flags);
+	  if(screen == NULL) exit(1);
+	  applySurface(0, 0, foo, screen);
+	  SDL_Flip(screen);
+	  SDL_FreeSurface(foo);
 	}
 	break;
       }
