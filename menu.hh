@@ -25,6 +25,7 @@ public:
   void addButton(Button *button);
   bool needUpdate();
   void updateSurface();
+  void updateHover(int x, int y);
   int getPressedButton(int x, int y);
 };
 

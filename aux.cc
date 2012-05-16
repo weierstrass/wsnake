@@ -91,3 +91,8 @@ int getWindowHeight(){
   }
   return SDL_GetVideoSurface()->h;
 }
+
+bool isInside(SDL_Rect r, int x, int y){
+  return (x > r.x && x < (r.x + r.w) && 
+	  y > r.y && y < (r.y + r.h));
+}

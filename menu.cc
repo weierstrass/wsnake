@@ -32,6 +32,8 @@ void Menu::updateSurface(){
 				ww, wh, 32,
 				0xff000000,0x00ff0000,
 				0x0000ff00,0x00000000);
+  }else{
+    clearSurface(surf);
   }
 
   //draw title
@@ -48,12 +50,31 @@ void Menu::updateSurface(){
       it != buttons.end(); it++ ){
     SDL_Surface *temp = it->getSurface();
     xOffset = (ww - it->bounds.w)*0.5;
-    yOffset += it->bounds.y;
+    //yOffset += it->bounds.y;
+    (*it).bounds.x = xOffset;
+    (*it).bounds.y = yOffset;
     applySurface(xOffset, yOffset, temp, surf);
     yOffset += it->bounds.h + MENU_VERTICAL_SPACING;
   }
   
   update = false;
+}
+
+void Menu::updateHover(int x, int y){
+  SDL_Rect r;
+  for(list<Button>::iterator it = buttons.begin(); 
+      it != buttons.end(); it++ ){
+    r = (*it).bounds;
+    if(isInside(r, x, y)){
+      if(!it->getHighlighted()){
+	it->setHighlighted(true);
+	update = true;
+      }
+    }else if(it->getHighlighted()){
+      it->setHighlighted(false);
+      update = true;
+    }
+  }
 }
 
 int Menu::getPressedButton(int x, int y){
@@ -65,7 +86,7 @@ int Menu::getPressedButton(int x, int y){
       it != buttons.end(); it++){
     
     xo = (ww - it->bounds.w)*0.5;
-    yo += it->bounds.y;
+    //yo += it->bounds.y;
     
     //coord on button!
     if(x > xo && x < (xo + it->bounds.w) && 

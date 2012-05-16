@@ -17,8 +17,9 @@ const int MENU_TOP_PADDING = 100;
 const int MENU_TITLE_TOP_PADDING = 30;
 const string MENU_TITLE = "WSNAKE";
 const SDL_Color MENU_TITLE_COLOR = {255, 255, 255};
+const SDL_Color MENU_BORDER_COLOR = {255, 255, 255};
 
-const SDL_Color BUTTON_TEXT_COLOR = {0, 0, 0};
+const SDL_Color BUTTON_TEXT_COLOR = {255, 255, 255};
 
 const unsigned char MENU_MODE = 0;
 const unsigned char GAME_MODE = 1;

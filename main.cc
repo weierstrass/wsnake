@@ -106,22 +106,25 @@ int main(int argc, char* args[]){
 	    quit = true;
 	    break;
 	  }
-	  //QUICK GAME
+	//QUICK GAME
 	}else if(mode == MODE_GAME_PLAN){
 	  
 	  game = gameplan->getPressedGame(event.button.x, 
-					   event.button.y);
+					  event.button.y);
 	  if(game != NULL && game->initGame()){
 	    mode = MODE_GAME;
 	  }
 	}	
 	break;
       case SDL_MOUSEMOTION:
-	if(mode == MODE_GAME_PLAN){
+	if(mode == MENU_MODE){
+	  menu->updateHover(event.motion.x, event.motion.y);
+	}else if(mode == MODE_GAME_PLAN){
 	  gameplan->updateHover(event.motion.x, event.motion.y);
 	}
 	break;
       case SDL_KEYDOWN:
+	//Handle short key fullscreen
 	if(event.key.keysym.sym == SDLK_f){
 	  SDL_Surface* foo = createSurface(screen->w, screen->h);
 	  applySurface(0, 0, screen, foo);

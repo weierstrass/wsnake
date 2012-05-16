@@ -26,6 +26,7 @@ public:
   string getText();
   int getID();
   void setHighlighted(bool b);
+  bool getHighlighted();
 };
 
 #endif
