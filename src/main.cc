@@ -32,7 +32,7 @@ int main(int argc, char* args[]){
   if(screen == NULL) return 1;
 
   //load fonts
-  retroFont = TTF_OpenFont( "fonts/Atarian.ttf", 35 );
+  retroFont = TTF_OpenFont( "../fonts/Atarian.ttf", 35 );
   if(retroFont == NULL) return 1;
   
   //init menu
@@ -51,31 +51,31 @@ int main(int argc, char* args[]){
     //Draw the right surface depending on game state
     switch(mode){
     case MENU_MODE:
-      //update menu surface
-      if(menu->needUpdate()){
-	cout<<"updating menu"<<endl;
-	menu->updateSurface();
-	overWriteSurface(menu->getSurface(), screen);
-	SDL_Flip(screen);
-      }
-      
-      break;
+    	//update menu surface
+    	if(menu->needUpdate()){
+    		cout<<"updating menu"<<endl;
+    		menu->updateSurface();
+    		overWriteSurface(menu->getSurface(), screen);
+    		SDL_Flip(screen);
+    	}
+
+    	break;
     case MODE_GAME_PLAN:
-      //SDL_GetMouseState(&mx, &my);
-      //cout<<"mx: "<<mx<<", my: "<<my<<endl;
-      if(gameplan->needUpdate()){
-	gameplan->updateSurface();
-	overWriteSurface(gameplan->getSurface(), screen);
-	SDL_Flip(screen);
-      }
-      break;
+    	//SDL_GetMouseState(&mx, &my);
+    	//cout<<"mx: "<<mx<<", my: "<<my<<endl;
+    	if(gameplan->needUpdate()){
+    		gameplan->updateSurface();
+    		overWriteSurface(gameplan->getSurface(), screen);
+    		SDL_Flip(screen);
+    	}
+    	break;
     case GAME_MODE:
-      if(game->needUpdate()){
-	game->updateSurface();
-	overWriteSurface(game->getSurface(), screen);
-	SDL_Flip(screen);	
-      }
-      break;
+    	if(game->needUpdate()){
+    		game->updateSurface();
+    		overWriteSurface(game->getSurface(), screen);
+    		SDL_Flip(screen);
+    	}
+    	break;
     }
 
     //handle events
@@ -94,6 +94,7 @@ int main(int argc, char* args[]){
 	  case BUTTON_QUICK_GAME:
 	    cout<<"quick"<<endl;
 	    mode = MODE_GAME_PLAN;
+	    gameplan->setDirty();
 	    break;
 	  case BUTTON_SETTINGS:
 	    cout<<"settings"<<endl;
@@ -108,11 +109,19 @@ int main(int argc, char* args[]){
 	  }
 	//QUICK GAME
 	}else if(mode == MODE_GAME_PLAN){
-	  
+	  //start a new game
 	  game = gameplan->getPressedGame(event.button.x, 
 					  event.button.y);
 	  if(game != NULL && game->initGame()){
 	    mode = MODE_GAME;
+	  }
+	  //go back to menu
+	  if(gameplan->getPressedButton(event.button.x,
+			event.button.y) == BUTTON_GAME_PLAN_BACK){
+		  cout<<"changing to MENU MODE"<<endl;
+		  mode = MENU_MODE;
+		  menu->updateHover(event.button.x, event.button.y);
+		  menu->setDirty();
 	  }
 	}	
 	break;
@@ -155,6 +164,7 @@ int main(int argc, char* args[]){
   }
 
   SDL_Quit();
+  cout<<"Quiting..."<<endl;
   return 0;
 }
 

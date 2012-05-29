@@ -3,7 +3,7 @@
 
 #Paths
 TOPDIR = ..
-SRCDIR = $(TOPDIR)
+SRCDIR = $(TOPDIR)/src
 TESTDIR = $(SRCDIR)/tests
 
 vpath %.cc $(SRCDIR)

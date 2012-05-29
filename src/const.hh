@@ -31,6 +31,10 @@ const int BUTTON_QUICK_GAME = 1;
 const int BUTTON_SETTINGS = 2;
 const int BUTTON_ABOUT = 3;
 const int BUTTON_QUIT = 4;
+const int BUTTON_GAME_PLAN_BACK = 0;
+const int BUTTON_DEF_HEIGHT = 50;
+const int BUTTON_DEF_WIDTH = 300;
+const int BUTTON_DEF_MARGIN = 20;
 
 const unsigned char READ_BLOCK = 'x';
 const unsigned char GAME_BRICK = 'x';

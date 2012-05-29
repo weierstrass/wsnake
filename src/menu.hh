@@ -24,6 +24,7 @@ public:
   SDL_Surface* getSurface();
   void addButton(Button *button);
   bool needUpdate();
+  void setDirty();
   void updateSurface();
   void updateHover(int x, int y);
   int getPressedButton(int x, int y);

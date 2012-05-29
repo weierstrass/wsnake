@@ -5,6 +5,10 @@ GamePlan::GamePlan(TTF_Font *f){
   surf = createSurface(getWindowWidth(), getWindowHeight());
   update = true;
   font = f;
+  backButton = new Button((getWindowWidth() - BUTTON_DEF_WIDTH)*0.5,
+		  getWindowHeight() - BUTTON_DEF_HEIGHT - BUTTON_DEF_MARGIN,
+		  BUTTON_DEF_WIDTH, BUTTON_DEF_HEIGHT, "<< Back to main menu",
+		  font, BUTTON_GAME_PLAN_BACK);
   if(!loadMaps()){
     //error msg here
   }
@@ -47,6 +51,10 @@ void GamePlan::updateSurface(){
     applySurface(r.x, r.y, tbn, surf);
   }
 
+  //draw lower buttons
+  applySurface(backButton->bounds.x, backButton->bounds.y,
+			   backButton->getSurface(), surf);
+
   update = false;
 }
 
@@ -62,7 +70,7 @@ bool GamePlan::loadMaps(){
   int col = 1;
 
   for(int i = 1; i < 100; i++, col++){
-    ss<<"maps/"<<i<<"/map.wsm";
+    ss<<"../maps/"<<i<<"/map.wsm";
     //check if file exists
     if(SDL_RWFromFile(ss.str().c_str(), "r") == NULL){
       break;
@@ -83,6 +91,10 @@ bool GamePlan::loadMaps(){
   }
 
   return true;
+}
+
+void GamePlan::setDirty(){
+	update = true;
 }
 
 void GamePlan::updateHover(int x, int y){
@@ -121,6 +133,13 @@ Game* GamePlan::getPressedGame(int x, int y){
     }
   }
   return NULL;
+}
+
+int GamePlan::getPressedButton(int x, int y){
+	if(isInside(backButton->bounds, x, y)){
+		return BUTTON_GAME_PLAN_BACK;
+	}
+	return -1;
 }
 
 Game* GamePlan::readMap(string path){

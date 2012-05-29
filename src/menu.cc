@@ -21,6 +21,10 @@ bool Menu::needUpdate(){
   return update;
 }
 
+void Menu::setDirty(){
+	update = true;
+}
+
 void Menu::updateSurface(){
   int ww = getWindowWidth();
   int wh = getWindowHeight();
