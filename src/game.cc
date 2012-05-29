@@ -76,7 +76,7 @@ void Game::createThumbnail(){
 
 bool Game::initGame(){
   surf = createSurface(getWindowWidth(), getWindowHeight());
-  font = TTF_OpenFont( "fonts/Atarian.ttf", 25);
+  font = TTF_OpenFont( "../fonts/Atarian.ttf", 25);
   SDL_Surface *titleSurf = NULL;
   titleSurf = TTF_RenderText_Blended(font, title.c_str(), 
 				     MENU_TITLE_COLOR);
