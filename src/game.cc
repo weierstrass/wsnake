@@ -33,6 +33,8 @@ Game::Game(string path){
     return;
   }
 
+  cout<<"mem array allocated.."<<endl;
+
   //read actual contents
   file.open(path.c_str());
   int j = 0;

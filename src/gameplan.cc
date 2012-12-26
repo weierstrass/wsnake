@@ -10,7 +10,7 @@ GamePlan::GamePlan(TTF_Font *f){
 		  BUTTON_DEF_WIDTH, BUTTON_DEF_HEIGHT, "<< Back to main menu",
 		  font, BUTTON_GAME_PLAN_BACK);
   if(!loadMaps()){
-    //error msg here
+    cerr<<"Fatal error while loading maps!"<<endl;
   }
 }
 
@@ -76,6 +76,8 @@ bool GamePlan::loadMaps(){
       break;
     }
     Game *g = new Game(ss.str());
+    
+    cout<<"game done"<<endl;
     
     g->setParentBounds(xo, yo, 
 		       GAME_THUMBNAIL_WIDTH,
@@ -143,5 +145,5 @@ int GamePlan::getPressedButton(int x, int y){
 }
 
 Game* GamePlan::readMap(string path){
-
+	return NULL;
 }

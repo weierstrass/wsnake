@@ -32,7 +32,7 @@ SDL_Surface* Button::getSurface(){
   }else{
     clearSurface(surf);
   }
-  buttonText = TTF_RenderText_Blended(font, text.c_str(), 
+  buttonText = TTF_RenderText_Blended(font, text.c_str(),
 				      BUTTON_TEXT_COLOR);
   if(buttonText == NULL) return NULL;
 
@@ -40,7 +40,10 @@ SDL_Surface* Button::getSurface(){
   int xo = (bounds.w - buttonText->w) * 0.5;
   int yo = (bounds.h - buttonText->h) * 0.5;
   applySurface(xo, yo, buttonText, surf);
-  
+
+  SDL_FreeSurface(buttonText);
+
+
   //add borders
   Uint32 borderColor;
   if(highlighted){

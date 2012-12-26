@@ -1,5 +1,5 @@
 # Makefile for WSnake
-# Andreas Bülling, 2012
+# Andreas BÃ¼lling, 2012
 
 #Paths
 TOPDIR = ..
@@ -14,7 +14,9 @@ OBJS := main.o \
 	menu.o \
 	button.o \
 	gameplan.o \
-	game.o
+	game.o \
+	abstractview.o \
+	about.o
 
 # C++-compiler
 CXX = g++
@@ -28,8 +30,10 @@ LIBS = -lm -lSDLmain -lSDL -lSDL_ttf
 #misc for osx
 OSX = -framework cocoa
 
+#temp fix..
+
 a.out: $(OBJS)
-	$(CXX) -o $@ $(CPPFLAGS) $(OBJS) $(LIBS) $(OSX)
+	$(CXX) -o $@ $(CPPFLAGS) $(OBJS) $(LIBS)
 
 clean:
 	rm -f a.out *.o

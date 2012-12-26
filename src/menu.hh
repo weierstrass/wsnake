@@ -16,7 +16,7 @@ class Menu{
 private:
   SDL_Surface *surf;
   list<Button> buttons;
-  int bgcolor;
+  //int bgcolor;
   bool update;
   TTF_Font *font;
 public:

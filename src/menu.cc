@@ -46,6 +46,7 @@ void Menu::updateSurface(){
 			MENU_TITLE_COLOR);
 	applySurface((ww - titleSurf->w)*0.5 ,
 			MENU_TITLE_TOP_PADDING, titleSurf, surf);
+	SDL_FreeSurface(titleSurf);
 
 	//draw buttons
 	int yOffset = MENU_TOP_PADDING;
