@@ -1,6 +1,7 @@
 /*Auxilary routines*/
 
 #include "aux.hh"
+#include <sstream>
 
 /*Loads image from file and convert it to proper format*/
 SDL_Surface *loadImage(string filename){
